@@ -287,7 +287,7 @@ class GoogleDistanceMatrix
      */
     public function setDestination($destination) : GoogleDistanceMatrix
     {
-        $this->destination = array($destination);
+        $this->destinations = array($destination);
         return $this;
     }
 
