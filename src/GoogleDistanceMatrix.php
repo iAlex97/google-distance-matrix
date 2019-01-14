@@ -366,6 +366,11 @@ class GoogleDistanceMatrix
             'transit_mode' => $this->transit_modes ? implode('|', $this->transit_modes) : ($this->transit_modes[0] ?? null),
             'transit_routing_preference' => $this->transit_routing_preference
         ];
+
+        $data = \array_filter($data, function($value) {
+            return null !== $value;
+        });
+        
         $parameters = http_build_query($data);
         $url = self::URL.'?'.$parameters;
         
