@@ -363,7 +363,7 @@ class GoogleDistanceMatrix
             'arrival_time' => $this->arrival_time,
             'departure_time' => $this->departure_time,
             'traffic_model' => $this->traffic_model,
-            'transit_mode' => count($this->transit_modes) > 1 ? implode('|', $this->transit_modes) : $this->transit_modes[0],
+            'transit_mode' => count((array)$this->transit_modes) > 1 ? implode('|', $this->transit_modes) : $this->transit_modes[0],
             'transit_routing_preference' => $this->transit_routing_preference
         ];
         $parameters = http_build_query($data);
