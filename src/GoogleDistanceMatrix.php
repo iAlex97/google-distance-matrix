@@ -287,7 +287,7 @@ class GoogleDistanceMatrix
      */
     public function setDestination($destination) : GoogleDistanceMatrix
     {
-        $this->destination = array($destination);
+        $this->destinations = array($destination);
         return $this;
     }
 
@@ -363,9 +363,14 @@ class GoogleDistanceMatrix
             'arrival_time' => $this->arrival_time,
             'departure_time' => $this->departure_time,
             'traffic_model' => $this->traffic_model,
-            'transit_mode' => count($this->transit_modes) > 1 ? implode('|', $this->transit_modes) : $this->transit_modes[0],
+            'transit_mode' => $this->transit_modes ? implode('|', $this->transit_modes) : ($this->transit_modes[0] ?? null),
             'transit_routing_preference' => $this->transit_routing_preference
         ];
+
+        $data = \array_filter($data, function($value) {
+            return null !== $value;
+        });
+        
         $parameters = http_build_query($data);
         $url = self::URL.'?'.$parameters;
         
